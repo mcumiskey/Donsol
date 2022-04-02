@@ -16,6 +16,7 @@ class Game: ObservableObject {
     
     @Published var canEscape: Bool
     
+    @Published var drawPile = Deck()
     @Published var currentRoom: [Card]
     @Published var discardPile: [Card]
     @Published var lastCard: Card?
@@ -37,5 +38,58 @@ class Game: ObservableObject {
     func lowerHealth () {
         current_health -= 1
     }
+    
+    func selectCard(curCard: Card) {
+        switch curCard {
+        //restore health
+        case .heart(let num):
+            if case .heart = lastCard {
+                // no healing
+            } else {
+                if num == .ace, num == .jack, num == .queen, num == .king {
+                    if(current_health + 11 >= max_health) {
+                        current_health = max_health
+                    } else {
+                        current_health = current_health + 11
+                    }
+                } else {
+                if(current_health + num.rawValue >= max_health) {
+                        current_health = max_health
+                    } else {
+                        current_health = current_health + num.rawValue
+                    }
+                }
+            }
+            
+        case .diamond(let num) :
+            if num == .ace,
+               num == .jack,
+               num == .queen,
+               num == .king {
+                current_sheild = max_sheild
+            } else {
+                current_sheild = num.rawValue
+            }
+
+        case .spade(let num), .club(let num) :
+            if num == .jack {
+                current_health -= 11
+            }
+            if num == .queen {
+                current_health -= 13
+            }
+            if num == .king {
+                current_health -= 15
+            }
+            if num == .ace {
+                current_health -= 17
+            } else {
+                //current_health -= num.rawValue
+            }
+        case .joker :
+            current_health -= 21
+        }
+    }
+    
 }
 

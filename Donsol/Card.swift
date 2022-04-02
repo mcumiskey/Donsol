@@ -130,3 +130,34 @@ extension Array where Element == Card {
        ]
     }
 }
+
+struct Deck: Equatable {
+    var deck: [Card] = .unsorted
+
+    var cardsRemaining: Int
+    
+    init() {
+        cardsRemaining = deck.count
+        deck.shuffle()
+    }
+    
+    func listDeck() {
+        for card in deck {
+            print(card.cardDescription)
+        }
+    }
+    
+//    mutating func drawCard() -> Card {
+//        //! is for if the deck is nil
+//        cardsRemaining = cardsRemaining - 1
+//        return deck.popLast()?
+//    }
+    
+    func isEmpty () -> Bool {
+        if(cardsRemaining == 0){
+            return true
+        } else {
+            return false
+        }
+    }
+}

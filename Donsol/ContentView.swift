@@ -10,6 +10,11 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var game = Game()
+    var Card1 = Card.heart(.ace)
+    var Card2 = Card.club(.queen)
+    var Card3 = Card.diamond(.king)
+    var Card4 = Card.joker(.red)
+
         
     var body: some View {
         ZStack {
@@ -26,6 +31,17 @@ struct ContentView: View {
                         .foregroundColor(Color("Background"))
                         .background(Color.white)
                         .cornerRadius(15.0)
+                }
+                
+                HStack {
+                    CardButtonView(game: game, card: Card1)
+                    CardButtonView(game: game, card: Card2)
+
+                }
+                HStack {
+                    CardButtonView(game: game, card: Card3)
+                    CardButtonView(game: game, card: Card4)
+
                 }
             }
         }
@@ -127,6 +143,24 @@ struct SheildView: View {
                     .frame(width: game.sheildPercent, height: 10)
             }
             
+        }
+    }
+}
+
+struct CardButtonView: View {
+    @ObservedObject var game: Game
+    var card: Card
+    
+    var body: some View {
+        Button (action: {
+            game.selectCard(curCard: card)
+        }) {
+            VStack {
+                card.image
+                    .padding([.leading, .trailing], 25)
+                Text(card.cardDescription)
+                    .foregroundColor(.white)
+            }
         }
     }
 }
