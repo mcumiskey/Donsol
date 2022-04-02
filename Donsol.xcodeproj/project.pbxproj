@@ -11,6 +11,8 @@
 		02CEFF5D27F89FB300624101 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CEFF5C27F89FB300624101 /* ContentView.swift */; };
 		02CEFF5F27F89FB600624101 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02CEFF5E27F89FB600624101 /* Assets.xcassets */; };
 		02CEFF6227F89FB600624101 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02CEFF6127F89FB600624101 /* Preview Assets.xcassets */; };
+		02CEFF6B27F8A01F00624101 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CEFF6A27F8A01F00624101 /* Card.swift */; };
+		02CEFF6E27F8A23400624101 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CEFF6D27F8A23400624101 /* Game.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		02CEFF5E27F89FB600624101 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02CEFF6127F89FB600624101 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		02CEFF6327F89FB600624101 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		02CEFF6A27F8A01F00624101 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		02CEFF6D27F8A23400624101 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +57,8 @@
 			isa = PBXGroup;
 			children = (
 				02CEFF5A27F89FB300624101 /* DonsolApp.swift */,
+				02CEFF6A27F8A01F00624101 /* Card.swift */,
+				02CEFF6D27F8A23400624101 /* Game.swift */,
 				02CEFF5C27F89FB300624101 /* ContentView.swift */,
 				02CEFF5E27F89FB600624101 /* Assets.xcassets */,
 				02CEFF6327F89FB600624101 /* Info.plist */,
@@ -139,7 +145,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				02CEFF5D27F89FB300624101 /* ContentView.swift in Sources */,
+				02CEFF6B27F8A01F00624101 /* Card.swift in Sources */,
 				02CEFF5B27F89FB300624101 /* DonsolApp.swift in Sources */,
+				02CEFF6E27F8A23400624101 /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
