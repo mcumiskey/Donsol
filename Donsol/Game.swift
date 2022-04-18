@@ -8,18 +8,28 @@
 import Foundation
 import SwiftUI
 
+struct RoomCard {
+    var card: Card
+    var isFlipped: Bool = false
+    
+    mutating func flipCard () {
+        isFlipped.toggle()
+    }
+}
+
 class Game: ObservableObject {
     var max_health: Int = 21
     @Published var current_health: Int = 21
     var max_sheild: Int = 11
     @Published var current_sheild: Int = 0
+    @Published var sheild_break: Int = 0
     
     @Published var canEscape: Bool
     
-    @Published var drawPile = Deck()
-    @Published var currentRoom: [Card]
-    @Published var discardPile: [Card]
-    @Published var lastCard: Card?
+    @Published var deck = Deck()
+    var lastCard: Card?
+    
+    @Published var gameOver: Bool
     
     var healthPercent: CGFloat { (CGFloat(current_health) / CGFloat(max_health)) * 100.0 }
     var sheildPercent: CGFloat { (CGFloat(current_sheild) / CGFloat(max_sheild)) * 100.0 }
@@ -31,63 +41,82 @@ class Game: ObservableObject {
         max_sheild = 11
         current_sheild = 0
         canEscape = true
-        currentRoom = []
-        discardPile = [] //empty array
+        gameOver = false
     }
     
-    func lowerHealth () {
-        current_health -= 1
+    func lowerHealth (damage: Int) {
+    
+        current_health = current_health - max(0, damage - current_sheild)
+        
+        if(damage >= sheild_break){
+            sheild_break = 0;
+            current_sheild = 0;
+        }
+        
+        if(current_health <= 0){
+            gameOver = true
+            current_health = 0
+        }
     }
     
-    func selectCard(curCard: Card) {
-        switch curCard {
-        //restore health
+    func generateRoom () {
+    }
+    
+    func generateRoom (topRight: Card, topLeft: Card, bottomRight: Card, bottomLeft: Card) {
+        var card2 = RoomCard(card: topRight, isFlipped: false)
+                
+    }
+    
+    
+    func selectCard(card: Card) {
+        switch card {
+        
         case .heart(let num):
-            if case .heart = lastCard {
-                // no healing
-            } else {
-                if num == .ace, num == .jack, num == .queen, num == .king {
+            switch num {
+                case .ace, .jack, .queen, .king:
                     if(current_health + 11 >= max_health) {
                         current_health = max_health
                     } else {
                         current_health = current_health + 11
                     }
-                } else {
-                if(current_health + num.rawValue >= max_health) {
+                    
+                default:
+                    if(current_health + num.rawValue >= max_health) {
                         current_health = max_health
                     } else {
                         current_health = current_health + num.rawValue
                     }
                 }
-            }
             
         case .diamond(let num) :
-            if num == .ace,
-               num == .jack,
-               num == .queen,
-               num == .king {
+            switch num {
+            case .ace, .jack, .queen, .king:
                 current_sheild = max_sheild
-            } else {
+            default:
                 current_sheild = num.rawValue
             }
 
+
         case .spade(let num), .club(let num) :
-            if num == .jack {
-                current_health -= 11
-            }
-            if num == .queen {
-                current_health -= 13
-            }
-            if num == .king {
-                current_health -= 15
-            }
-            if num == .ace {
-                current_health -= 17
-            } else {
-                //current_health -= num.rawValue
+            switch num {
+            case .jack :
+                lowerHealth(damage: 11)
+                
+            case .queen :
+                lowerHealth(damage: 13)
+
+            case .king :
+                lowerHealth(damage: 15)
+                
+            case .ace :
+                lowerHealth(damage: 17)
+
+            default :
+                lowerHealth(damage: num.rawValue)
+
             }
         case .joker :
-            current_health -= 21
+            lowerHealth(damage: 21)
         }
     }
     

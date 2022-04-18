@@ -10,7 +10,6 @@ import SwiftUI //for Image property of card
 
 //obserable object
 
-
 enum Card: Equatable {
     enum Number: Int, Equatable {
         case ace = 1
@@ -27,7 +26,8 @@ enum Card: Equatable {
         case queen = 12
         case king = 13
     }
-    enum Color: String, Equatable{
+    
+    enum Color: String, Equatable {
         case red, blue
     }
 
@@ -50,6 +50,22 @@ enum Card: Equatable {
             return Image("clubs_\(num.rawValue)")
         case .joker(let color) :
             return Image("joker_\(color.rawValue)")
+        }
+    }
+    
+    var backImage : Image {
+        switch self {
+        //the num is the Enum, that has to bee gotten after the suite
+        case .heart, .diamond :
+            return Image("back_red")
+        case .spade, .club :
+            return Image("back_blue")
+        case .joker(let color) :
+            if(color.rawValue == "red") {
+                return Image("back_red")
+            } else {
+                return Image("back_blue")
+            }
         }
     }
     
@@ -131,12 +147,67 @@ extension Array where Element == Card {
     }
 }
 
-struct Deck: Equatable {
-    var deck: [Card] = .unsorted
-
+struct Deck {
+    var deck: [Card]
     var cardsRemaining: Int
     
     init() {
+        deck = [
+            .heart(.ace),
+            .heart(.two),
+            .heart(.three),
+            .heart(.four),
+            .heart(.five),
+            .heart(.seven),
+            .heart(.eight),
+            .heart(.nine),
+            .heart(.ten),
+            .heart(.jack),
+            .heart(.queen),
+            .heart(.king),
+          
+            .diamond(.ace),
+            .diamond(.two),
+            .diamond(.three),
+            .diamond(.four),
+            .diamond(.five),
+            .diamond(.seven),
+            .diamond(.eight),
+            .diamond(.nine),
+            .diamond(.ten),
+            .diamond(.jack),
+            .diamond(.queen),
+            .diamond(.king),
+            
+            .spade(.ace),
+            .spade(.two),
+            .spade(.three),
+            .spade(.four),
+            .spade(.five),
+            .spade(.seven),
+            .spade(.eight),
+            .spade(.nine),
+            .spade(.ten),
+            .spade(.jack),
+            .spade(.queen),
+            .spade(.king),
+            
+            .club(.ace),
+            .club(.two),
+            .club(.three),
+            .club(.four),
+            .club(.five),
+            .club(.seven),
+            .club(.eight),
+            .club(.nine),
+            .club(.ten),
+            .club(.jack),
+            .club(.queen),
+            .club(.king),
+            
+            .joker(.blue),
+            .joker(.red)
+        ]
         cardsRemaining = deck.count
         deck.shuffle()
     }
@@ -147,17 +218,12 @@ struct Deck: Equatable {
         }
     }
     
-//    mutating func drawCard() -> Card {
-//        //! is for if the deck is nil
-//        cardsRemaining = cardsRemaining - 1
-//        return deck.popLast()?
-//    }
-    
-    func isEmpty () -> Bool {
-        if(cardsRemaining == 0){
-            return true
-        } else {
-            return false
-        }
+    mutating func drawCard() -> Card {
+        return deck.popLast() ?? .heart(.ace)
     }
+    
+    mutating func addCard(card: Card) {
+        deck.append(card)
+    }
+    
 }

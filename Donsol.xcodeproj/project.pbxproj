@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02BDC6FC280CD14E0043E763 /* DonsolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BDC6FB280CD14E0043E763 /* DonsolTests.swift */; };
+		02BDC706280CD1610043E763 /* GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BDC705280CD1610043E763 /* GameTests.swift */; };
 		02CEFF5B27F89FB300624101 /* DonsolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CEFF5A27F89FB300624101 /* DonsolApp.swift */; };
 		02CEFF5D27F89FB300624101 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CEFF5C27F89FB300624101 /* ContentView.swift */; };
 		02CEFF5F27F89FB600624101 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02CEFF5E27F89FB600624101 /* Assets.xcassets */; };
@@ -15,7 +17,21 @@
 		02CEFF6E27F8A23400624101 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CEFF6D27F8A23400624101 /* Game.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		02BDC6FE280CD14E0043E763 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 02CEFF4F27F89FB300624101 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 02CEFF5627F89FB300624101;
+			remoteInfo = Donsol;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		02BDC6F9280CD14E0043E763 /* DonsolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DonsolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		02BDC6FB280CD14E0043E763 /* DonsolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonsolTests.swift; sourceTree = "<group>"; };
+		02BDC6FD280CD14E0043E763 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		02BDC705280CD1610043E763 /* GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
 		02CEFF5727F89FB300624101 /* Donsol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Donsol.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02CEFF5A27F89FB300624101 /* DonsolApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonsolApp.swift; sourceTree = "<group>"; };
 		02CEFF5C27F89FB300624101 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -27,6 +43,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		02BDC6F6280CD14E0043E763 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		02CEFF5427F89FB300624101 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -37,10 +60,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02BDC6FA280CD14E0043E763 /* DonsolTests */ = {
+			isa = PBXGroup;
+			children = (
+				02BDC6FB280CD14E0043E763 /* DonsolTests.swift */,
+				02BDC705280CD1610043E763 /* GameTests.swift */,
+				02BDC6FD280CD14E0043E763 /* Info.plist */,
+			);
+			path = DonsolTests;
+			sourceTree = "<group>";
+		};
 		02CEFF4E27F89FB300624101 = {
 			isa = PBXGroup;
 			children = (
 				02CEFF5927F89FB300624101 /* Donsol */,
+				02BDC6FA280CD14E0043E763 /* DonsolTests */,
 				02CEFF5827F89FB300624101 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				02CEFF5727F89FB300624101 /* Donsol.app */,
+				02BDC6F9280CD14E0043E763 /* DonsolTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,6 +113,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		02BDC6F8280CD14E0043E763 /* DonsolTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 02BDC702280CD14E0043E763 /* Build configuration list for PBXNativeTarget "DonsolTests" */;
+			buildPhases = (
+				02BDC6F5280CD14E0043E763 /* Sources */,
+				02BDC6F6280CD14E0043E763 /* Frameworks */,
+				02BDC6F7280CD14E0043E763 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				02BDC6FF280CD14E0043E763 /* PBXTargetDependency */,
+			);
+			name = DonsolTests;
+			productName = DonsolTests;
+			productReference = 02BDC6F9280CD14E0043E763 /* DonsolTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		02CEFF5627F89FB300624101 /* Donsol */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02CEFF6627F89FB600624101 /* Build configuration list for PBXNativeTarget "Donsol" */;
@@ -104,6 +157,10 @@
 				LastSwiftUpdateCheck = 1210;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
+					02BDC6F8280CD14E0043E763 = {
+						CreatedOnToolsVersion = 12.1;
+						TestTargetID = 02CEFF5627F89FB300624101;
+					};
 					02CEFF5627F89FB300624101 = {
 						CreatedOnToolsVersion = 12.1;
 					};
@@ -123,11 +180,19 @@
 			projectRoot = "";
 			targets = (
 				02CEFF5627F89FB300624101 /* Donsol */,
+				02BDC6F8280CD14E0043E763 /* DonsolTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		02BDC6F7280CD14E0043E763 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		02CEFF5527F89FB300624101 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -140,6 +205,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		02BDC6F5280CD14E0043E763 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02BDC6FC280CD14E0043E763 /* DonsolTests.swift in Sources */,
+				02BDC706280CD1610043E763 /* GameTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		02CEFF5327F89FB300624101 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -153,7 +227,53 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		02BDC6FF280CD14E0043E763 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 02CEFF5627F89FB300624101 /* Donsol */;
+			targetProxy = 02BDC6FE280CD14E0043E763 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		02BDC700280CD14E0043E763 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DonsolTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = milescumiskey.DonsolTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Donsol.app/Donsol";
+			};
+			name = Debug;
+		};
+		02BDC701280CD14E0043E763 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DonsolTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = milescumiskey.DonsolTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Donsol.app/Donsol";
+			};
+			name = Release;
+		};
 		02CEFF6427F89FB600624101 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -315,6 +435,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		02BDC702280CD14E0043E763 /* Build configuration list for PBXNativeTarget "DonsolTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				02BDC700280CD14E0043E763 /* Debug */,
+				02BDC701280CD14E0043E763 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		02CEFF5227F89FB300624101 /* Build configuration list for PBXProject "Donsol" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

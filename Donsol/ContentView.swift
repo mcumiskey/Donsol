@@ -14,35 +14,33 @@ struct ContentView: View {
     var Card2 = Card.club(.queen)
     var Card3 = Card.diamond(.king)
     var Card4 = Card.joker(.red)
+    
+    @State var isEnabled = true
 
         
     var body: some View {
         ZStack {
             BackgroundView()
             VStack{
-    
+                Spacer()
+
                 HeaderView(game: game)
 
-                Button (action: {
-                    game.lowerHealth()
-                }) {
-                    Text("Lower Health")
-                        .padding()
-                        .foregroundColor(Color("Background"))
-                        .background(Color.white)
-                        .cornerRadius(15.0)
-                }
                 
                 HStack {
-                    CardButtonView(game: game, card: Card1)
-                    CardButtonView(game: game, card: Card2)
+                    CardButtonView(game: game, isEnabled: $isEnabled, card: Card1)
+                    CardButtonView(game: game, isEnabled: $isEnabled, card: Card2)
 
                 }
                 HStack {
-                    CardButtonView(game: game, card: Card3)
-                    CardButtonView(game: game, card: Card4)
+                    CardButtonView(game: game, isEnabled: $isEnabled, card: Card3)
+                    CardButtonView(game: game, isEnabled: $isEnabled, card: Card4)
 
                 }
+                Spacer()
+                Text("Sheild Break: \(self.game.sheild_break)")
+                    .foregroundColor(.white)
+                Spacer()
             }
         }
     }
@@ -51,7 +49,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-
     }
 }
 
@@ -149,18 +146,41 @@ struct SheildView: View {
 
 struct CardButtonView: View {
     @ObservedObject var game: Game
+    @Binding var isEnabled: Bool
     var card: Card
     
     var body: some View {
-        Button (action: {
-            game.selectCard(curCard: card)
-        }) {
+            Button (action: {
+                game.selectCard(card: card)
+
+            }) {
             VStack {
-                card.image
-                    .padding([.leading, .trailing], 25)
-                Text(card.cardDescription)
-                    .foregroundColor(.white)
+                if(isEnabled) {
+                    CardView(card: card, showBack: true)
+                } else {
+                    CardView(card: card, showBack: false)
+                }
             }
         }
+    }
+}
+
+struct CardView: View {
+    var card: Card
+    var showBack: Bool
+    
+    var body: some View {
+        if(showBack) {
+            card.image
+                .padding([.leading, .trailing], 25)
+            Text(card.cardDescription)
+                .foregroundColor(.white)
+        } else {
+            card.backImage
+                .padding([.leading, .trailing], 25)
+            Text(" ")
+                .foregroundColor(.white)
+        }
+        
     }
 }
