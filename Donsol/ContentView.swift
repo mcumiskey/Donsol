@@ -15,9 +15,14 @@ struct ContentView: View {
     var Card3 = Card.diamond(.king)
     var Card4 = Card.joker(.red)
     
+    @State var topRightCard_isFlipped : Bool = false
+    @State var topLeftCard_isFlipped : Bool = false
+    @State var bottomRightCard_isFlipped : Bool = false
+    @State var bottomLeftCard_isFlipped : Bool = false
+    
     @State var isEnabled = true
-
-        
+    
+    
     var body: some View {
         ZStack {
             BackgroundView()
@@ -25,17 +30,15 @@ struct ContentView: View {
                 Spacer()
 
                 HeaderView(game: game)
-
+                
                 
                 HStack {
-                    CardButtonView(game: game, isEnabled: $isEnabled, card: Card1)
-                    CardButtonView(game: game, isEnabled: $isEnabled, card: Card2)
-
+                    CardButtonView(game: game, isFlipped: $topRightCard_isFlipped, isEnabled: $isEnabled, card: game.deck.drawCard())
+                    CardButtonView(game: game, isFlipped: $topLeftCard_isFlipped, isEnabled: $isEnabled, card: game.deck.cards[0])
                 }
                 HStack {
-                    CardButtonView(game: game, isEnabled: $isEnabled, card: Card3)
-                    CardButtonView(game: game, isEnabled: $isEnabled, card: Card4)
-
+                    CardButtonView(game: game, isFlipped: $bottomRightCard_isFlipped, isEnabled: $isEnabled, card: Card3)
+                    CardButtonView(game: game, isFlipped: $bottomLeftCard_isFlipped, isEnabled: $isEnabled, card: Card4)
                 }
                 Spacer()
                 Text("Sheild Break: \(self.game.sheild_break)")
@@ -146,41 +149,29 @@ struct SheildView: View {
 
 struct CardButtonView: View {
     @ObservedObject var game: Game
+    @Binding var isFlipped: Bool
     @Binding var isEnabled: Bool
+    
     var card: Card
     
     var body: some View {
             Button (action: {
                 game.selectCard(card: card)
-
+                isFlipped.toggle()
             }) {
             VStack {
-                if(isEnabled) {
-                    CardView(card: card, showBack: true)
+                if(isFlipped) {
+                    card.backImage
+                        .padding([.leading, .trailing], 25)
+                    Text("  ")
+                        
                 } else {
-                    CardView(card: card, showBack: false)
+                    card.image
+                        .padding([.leading, .trailing], 25)
+                    Text(card.cardDescription)
+                        .foregroundColor(.white)
                 }
             }
         }
-    }
-}
-
-struct CardView: View {
-    var card: Card
-    var showBack: Bool
-    
-    var body: some View {
-        if(showBack) {
-            card.image
-                .padding([.leading, .trailing], 25)
-            Text(card.cardDescription)
-                .foregroundColor(.white)
-        } else {
-            card.backImage
-                .padding([.leading, .trailing], 25)
-            Text(" ")
-                .foregroundColor(.white)
-        }
-        
     }
 }

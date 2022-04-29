@@ -148,11 +148,10 @@ extension Array where Element == Card {
 }
 
 struct Deck {
-    var deck: [Card]
-    var cardsRemaining: Int
+    var cards: [Card]
     
     init() {
-        deck = [
+        cards = [
             .heart(.ace),
             .heart(.two),
             .heart(.three),
@@ -208,22 +207,26 @@ struct Deck {
             .joker(.blue),
             .joker(.red)
         ]
-        cardsRemaining = deck.count
-        deck.shuffle()
+        cards.shuffle()
     }
     
     func listDeck() {
-        for card in deck {
+        for card in cards {
             print(card.cardDescription)
         }
     }
     
     mutating func drawCard() -> Card {
-        return deck.popLast() ?? .heart(.ace)
+        
+        //cards.popLast fails to preview
+        //cards.removeAt / .removeFirst / .removeLast fails to preview
+        //return cards [0] creates a white screen
+        //I can ask for Cards [0] in Content View & have it display
+        return cards.popLast()!
     }
     
     mutating func addCard(card: Card) {
-        deck.append(card)
+        cards.append(card)
     }
     
 }

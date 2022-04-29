@@ -61,12 +61,7 @@ class Game: ObservableObject {
     
     func generateRoom () {
     }
-    
-    func generateRoom (topRight: Card, topLeft: Card, bottomRight: Card, bottomLeft: Card) {
-        var card2 = RoomCard(card: topRight, isFlipped: false)
-                
-    }
-    
+
     
     func selectCard(card: Card) {
         switch card {
