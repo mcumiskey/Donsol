@@ -10,12 +10,6 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var game = Game()
-    
-    @State var topRightCard_isFlipped : Bool = false
-    @State var topLeftCard_isFlipped : Bool = false
-    @State var bottomRightCard_isFlipped : Bool = false
-    @State var bottomLeftCard_isFlipped : Bool = false
-
     var Card1 = Card.heart(.ace)
     var Card2 = Card.club(.queen)
     var Card3 = Card.diamond(.king)
@@ -34,13 +28,13 @@ struct ContentView: View {
 
                 
                 HStack {
-                    CardButtonView(game: game, isFlipped: $topRightCard_isFlipped, isEnabled: $isEnabled, card: Card1)
-                    CardButtonView(game: game, isFlipped: $topLeftCard_isFlipped, isEnabled: $isEnabled, card: Card2)
+                    CardButtonView(game: game, isEnabled: $isEnabled, card: Card1)
+                    CardButtonView(game: game, isEnabled: $isEnabled, card: Card2)
 
                 }
                 HStack {
-                    CardButtonView(game: game, isFlipped: $bottomRightCard_isFlipped, isEnabled: $isEnabled, card: Card3)
-                    CardButtonView(game: game, isFlipped: $bottomLeftCard_isFlipped, isEnabled: $isEnabled, card: Card4)
+                    CardButtonView(game: game, isEnabled: $isEnabled, card: Card3)
+                    CardButtonView(game: game, isEnabled: $isEnabled, card: Card4)
 
                 }
                 Spacer()
@@ -152,29 +146,41 @@ struct SheildView: View {
 
 struct CardButtonView: View {
     @ObservedObject var game: Game
-    @Binding var isFlipped: Bool
     @Binding var isEnabled: Bool
-    
     var card: Card
     
     var body: some View {
             Button (action: {
                 game.selectCard(card: card)
-                isFlipped.toggle()
+
             }) {
             VStack {
-                if(isFlipped) {
-                    card.backImage
-                        .padding([.leading, .trailing], 25)
-                    Text("  ")
-                        
+                if(isEnabled) {
+                    CardView(card: card, showBack: true)
                 } else {
-                    card.image
-                        .padding([.leading, .trailing], 25)
-                    Text(card.cardDescription)
-                        .foregroundColor(.white)
+                    CardView(card: card, showBack: false)
                 }
             }
         }
+    }
+}
+
+struct CardView: View {
+    var card: Card
+    var showBack: Bool
+    
+    var body: some View {
+        if(showBack) {
+            card.image
+                .padding([.leading, .trailing], 25)
+            Text(card.cardDescription)
+                .foregroundColor(.white)
+        } else {
+            card.backImage
+                .padding([.leading, .trailing], 25)
+            Text(" ")
+                .foregroundColor(.white)
+        }
+        
     }
 }

@@ -8,6 +8,15 @@
 import Foundation
 import SwiftUI
 
+struct RoomCard {
+    var card: Card
+    var isFlipped: Bool = false
+    
+    mutating func flipCard () {
+        isFlipped.toggle()
+    }
+}
+
 class Game: ObservableObject {
     var max_health: Int = 21
     @Published var current_health: Int = 21
@@ -36,7 +45,7 @@ class Game: ObservableObject {
     }
     
     func lowerHealth (damage: Int) {
-
+    
         current_health = current_health - max(0, damage - current_sheild)
         
         if(damage >= sheild_break){
@@ -50,25 +59,33 @@ class Game: ObservableObject {
         }
     }
     
-    func restoreHealth (life: Int) {
-        if(current_health + life >= max_health) {
-            current_health = max_health
-        } else {
-            current_health = current_health + life
-        }
-        
+    func generateRoom () {
     }
-
+    
+    func generateRoom (topRight: Card, topLeft: Card, bottomRight: Card, bottomLeft: Card) {
+        var card2 = RoomCard(card: topRight, isFlipped: false)
+                
+    }
+    
+    
     func selectCard(card: Card) {
-        
         switch card {
         
         case .heart(let num):
             switch num {
                 case .ace, .jack, .queen, .king:
-                    restoreHealth(life: 11)
+                    if(current_health + 11 >= max_health) {
+                        current_health = max_health
+                    } else {
+                        current_health = current_health + 11
+                    }
+                    
                 default:
-                    restoreHealth(life: num.rawValue)
+                    if(current_health + num.rawValue >= max_health) {
+                        current_health = max_health
+                    } else {
+                        current_health = current_health + num.rawValue
+                    }
                 }
             
         case .diamond(let num) :
@@ -101,92 +118,7 @@ class Game: ObservableObject {
         case .joker :
             lowerHealth(damage: 21)
         }
-        
-        lastCard = card
     }
+    
 }
-
-
-struct Deck {
-    var deck: [Card]
-
-    init() {
-        deck = [
-            .heart(.ace),
-            .heart(.two),
-            .heart(.three),
-            .heart(.four),
-            .heart(.five),
-            .heart(.seven),
-            .heart(.eight),
-            .heart(.nine),
-            .heart(.ten),
-            .heart(.jack),
-            .heart(.queen),
-            .heart(.king),
-
-            .diamond(.ace),
-            .diamond(.two),
-            .diamond(.three),
-            .diamond(.four),
-            .diamond(.five),
-            .diamond(.seven),
-            .diamond(.eight),
-            .diamond(.nine),
-            .diamond(.ten),
-            .diamond(.jack),
-            .diamond(.queen),
-            .diamond(.king),
-
-            .spade(.ace),
-            .spade(.two),
-            .spade(.three),
-            .spade(.four),
-            .spade(.five),
-            .spade(.seven),
-            .spade(.eight),
-            .spade(.nine),
-            .spade(.ten),
-            .spade(.jack),
-            .spade(.queen),
-            .spade(.king),
-
-            .club(.ace),
-            .club(.two),
-            .club(.three),
-            .club(.four),
-            .club(.five),
-            .club(.seven),
-            .club(.eight),
-            .club(.nine),
-            .club(.ten),
-            .club(.jack),
-            .club(.queen),
-            .club(.king),
-
-            .joker(.blue),
-            .joker(.red)
-        ]
-        deck.shuffle()
-    }
-
-    func listDeck() {
-        for card in deck {
-            print(card.cardDescription)
-        }
-    }
-
-    func deckSize() -> Int {
-        return deck.count
-    }
-
-    mutating func drawCard() -> Card {
-        return deck[1]
-    }
-
-    mutating func addCard(card: Card) {
-        deck.append(card)
-    }
-}
-
 
