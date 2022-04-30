@@ -8,15 +8,6 @@
 import Foundation
 import SwiftUI
 
-struct RoomCard {
-    var card: Card
-    var isFlipped: Bool = false
-    
-    mutating func flipCard () {
-        isFlipped.toggle()
-    }
-}
-
 class Game: ObservableObject {
     var max_health: Int = 21
     @Published var current_health: Int = 21
@@ -27,8 +18,10 @@ class Game: ObservableObject {
     @Published var canEscape: Bool
     
     @Published var deck = Deck()
-    var lastCard: Card?
-    
+    var lastCard: CardValue?
+
+    var room: [Card] = [] // 1-4 cards representing the active room
+
     @Published var gameOver: Bool
     
     var healthPercent: CGFloat { (CGFloat(current_health) / CGFloat(max_health)) * 100.0 }
@@ -42,6 +35,7 @@ class Game: ObservableObject {
         current_sheild = 0
         canEscape = true
         gameOver = false
+        generateRoom()
     }
     
     func lowerHealth (damage: Int) {
@@ -60,10 +54,17 @@ class Game: ObservableObject {
     }
     
     func generateRoom () {
+        room = (0..<4).compactMap { _ in deck.drawCard() }
     }
 
     
-    func selectCard(card: Card) {
+    func selectCard(card: CardValue) {
+        // flip the card
+        room = room.map { c in
+            guard c.value == card else { return c }
+            return Card(value: card, isFlipped: true)
+        }
+
         switch card {
         
         case .heart(let num):

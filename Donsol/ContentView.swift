@@ -8,21 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    @StateObject var game = Game()
-    var Card1 = Card.heart(.ace)
-    var Card2 = Card.club(.queen)
-    var Card3 = Card.diamond(.king)
-    var Card4 = Card.joker(.red)
-    
-    @State var topRightCard_isFlipped : Bool = false
-    @State var topLeftCard_isFlipped : Bool = false
-    @State var bottomRightCard_isFlipped : Bool = false
-    @State var bottomLeftCard_isFlipped : Bool = false
-    
     @State var isEnabled = true
     
-    
+    @StateObject var game = Game()
+
     var body: some View {
         ZStack {
             BackgroundView()
@@ -31,14 +20,45 @@ struct ContentView: View {
 
                 HeaderView(game: game)
                 
-                
                 HStack {
-                    CardButtonView(game: game, isFlipped: $topRightCard_isFlipped, isEnabled: $isEnabled, card: game.deck.drawCard())
-                    CardButtonView(game: game, isFlipped: $topLeftCard_isFlipped, isEnabled: $isEnabled, card: game.deck.cards[0])
+                    if game.room.count > 0 {
+                        let card1 = game.room[0]
+                        CardButtonView(
+                            game: game,
+                            isFlipped: .constant(card1.isFlipped),
+                            isEnabled: $isEnabled,
+                            card: card1.value
+                        )
+                    }
+                    if game.room.count > 1 {
+                        let card2 = game.room[1]
+                        CardButtonView(
+                            game: game,
+                            isFlipped: .constant(card2.isFlipped),
+                            isEnabled: $isEnabled,
+                            card: card2.value
+                        )
+                    }
                 }
                 HStack {
-                    CardButtonView(game: game, isFlipped: $bottomRightCard_isFlipped, isEnabled: $isEnabled, card: Card3)
-                    CardButtonView(game: game, isFlipped: $bottomLeftCard_isFlipped, isEnabled: $isEnabled, card: Card4)
+                    if game.room.count > 2 {
+                        let card3 = game.room[2]
+                        CardButtonView(
+                            game: game,
+                            isFlipped: .constant(card3.isFlipped),
+                            isEnabled: $isEnabled,
+                            card: card3.value
+                        )
+                    }
+                    if game.room.count > 3 {
+                        let card4 = game.room[3]
+                        CardButtonView(
+                            game: game,
+                            isFlipped: .constant(card4.isFlipped),
+                            isEnabled: $isEnabled,
+                            card: card4.value
+                        )
+                    }
                 }
                 Spacer()
                 Text("Sheild Break: \(self.game.sheild_break)")
@@ -152,19 +172,19 @@ struct CardButtonView: View {
     @Binding var isFlipped: Bool
     @Binding var isEnabled: Bool
     
-    var card: Card
+    var card: CardValue
     
     var body: some View {
-            Button (action: {
-                game.selectCard(card: card)
-                isFlipped.toggle()
-            }) {
+        Button (action: {
+            game.selectCard(card: card)
+            isFlipped.toggle()
+        }) {
             VStack {
                 if(isFlipped) {
                     card.backImage
                         .padding([.leading, .trailing], 25)
                     Text("  ")
-                        
+
                 } else {
                     card.image
                         .padding([.leading, .trailing], 25)
