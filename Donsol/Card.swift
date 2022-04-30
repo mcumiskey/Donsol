@@ -1,5 +1,5 @@
 //
-//  Card.swift
+//  CardValue.swift
 //  Donsol
 //
 //  Created by Miles Cumiskey on 4/2/22.
@@ -10,7 +10,7 @@ import SwiftUI //for Image property of card
 
 //obserable object
 
-enum Card: Equatable {
+enum CardValue: Equatable {
     enum Number: Int, Equatable {
         case ace = 1
         case two = 2
@@ -86,8 +86,8 @@ enum Card: Equatable {
     }
 }
 
-extension Array where Element == Card {
-    static var unsorted: [Card] {
+extension Array where Element == CardValue {
+    static var standardDeck: [CardValue] {
         [
            .heart(.ace),
            .heart(.two),
@@ -147,72 +147,28 @@ extension Array where Element == Card {
     }
 }
 
+struct Card: Equatable {
+    let value: CardValue
+    let isFlipped: Bool
+}
+
+extension Array where Element == Card {
+    static var newDeck: [Card] {
+        [CardValue].standardDeck.map { Card(value: $0, isFlipped: false) }
+    }
+}
+
 struct Deck {
     var cards: [Card]
     
     init() {
-        cards = [
-            .heart(.ace),
-            .heart(.two),
-            .heart(.three),
-            .heart(.four),
-            .heart(.five),
-            .heart(.seven),
-            .heart(.eight),
-            .heart(.nine),
-            .heart(.ten),
-            .heart(.jack),
-            .heart(.queen),
-            .heart(.king),
-          
-            .diamond(.ace),
-            .diamond(.two),
-            .diamond(.three),
-            .diamond(.four),
-            .diamond(.five),
-            .diamond(.seven),
-            .diamond(.eight),
-            .diamond(.nine),
-            .diamond(.ten),
-            .diamond(.jack),
-            .diamond(.queen),
-            .diamond(.king),
-            
-            .spade(.ace),
-            .spade(.two),
-            .spade(.three),
-            .spade(.four),
-            .spade(.five),
-            .spade(.seven),
-            .spade(.eight),
-            .spade(.nine),
-            .spade(.ten),
-            .spade(.jack),
-            .spade(.queen),
-            .spade(.king),
-            
-            .club(.ace),
-            .club(.two),
-            .club(.three),
-            .club(.four),
-            .club(.five),
-            .club(.seven),
-            .club(.eight),
-            .club(.nine),
-            .club(.ten),
-            .club(.jack),
-            .club(.queen),
-            .club(.king),
-            
-            .joker(.blue),
-            .joker(.red)
-        ]
+        cards = .newDeck
         cards.shuffle()
     }
     
     func listDeck() {
         for card in cards {
-            print(card.cardDescription)
+          print(card.value.cardDescription)
         }
     }
     
