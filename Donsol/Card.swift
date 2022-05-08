@@ -8,9 +8,8 @@
 import Foundation
 import SwiftUI //for Image property of card
 
-//obserable object
 
-enum Card: Equatable {
+enum CardValue: Equatable {
     enum Number: Int, Equatable {
         case ace = 1
         case two = 2
@@ -54,19 +53,7 @@ enum Card: Equatable {
     }
     
     var backImage : Image {
-        switch self {
-        //the num is the Enum, that has to bee gotten after the suite
-        case .heart, .diamond :
-            return Image("back_red")
-        case .spade, .club :
-            return Image("back_blue")
-        case .joker(let color) :
-            if(color.rawValue == "red") {
-                return Image("back_red")
-            } else {
-                return Image("back_blue")
-            }
-        }
+        return Image("back_blue")
     }
     
     var cardDescription : String {
@@ -86,8 +73,8 @@ enum Card: Equatable {
     }
 }
 
-extension Array where Element == Card {
-    static var unsorted: [Card] {
+extension Array where Element == CardValue {
+    static var standardDeck: [CardValue] {
         [
            .heart(.ace),
            .heart(.two),
@@ -147,81 +134,36 @@ extension Array where Element == Card {
     }
 }
 
+//the cards have a value and know if they are flipped
+//the CardValue holds the suit and numbers
+struct Card: Equatable {
+    let value: CardValue
+    let isFlipped: Bool
+}
+
+extension Array where Element == Card {
+    static var newDeck: [Card] {
+        //map the CardValues to the new Deck of cards.
+        //$0 is a representation of the argument each time, it is a parameter
+        [CardValue].standardDeck.map { Card(value: $0, isFlipped: false)}
+    }
+}
+
 struct Deck {
     var cards: [Card]
     
     init() {
-        cards = [
-            .heart(.ace),
-            .heart(.two),
-            .heart(.three),
-            .heart(.four),
-            .heart(.five),
-            .heart(.seven),
-            .heart(.eight),
-            .heart(.nine),
-            .heart(.ten),
-            .heart(.jack),
-            .heart(.queen),
-            .heart(.king),
-          
-            .diamond(.ace),
-            .diamond(.two),
-            .diamond(.three),
-            .diamond(.four),
-            .diamond(.five),
-            .diamond(.seven),
-            .diamond(.eight),
-            .diamond(.nine),
-            .diamond(.ten),
-            .diamond(.jack),
-            .diamond(.queen),
-            .diamond(.king),
-            
-            .spade(.ace),
-            .spade(.two),
-            .spade(.three),
-            .spade(.four),
-            .spade(.five),
-            .spade(.seven),
-            .spade(.eight),
-            .spade(.nine),
-            .spade(.ten),
-            .spade(.jack),
-            .spade(.queen),
-            .spade(.king),
-            
-            .club(.ace),
-            .club(.two),
-            .club(.three),
-            .club(.four),
-            .club(.five),
-            .club(.seven),
-            .club(.eight),
-            .club(.nine),
-            .club(.ten),
-            .club(.jack),
-            .club(.queen),
-            .club(.king),
-            
-            .joker(.blue),
-            .joker(.red)
-        ]
+        cards = .newDeck
         cards.shuffle()
     }
     
     func listDeck() {
         for card in cards {
-            print(card.cardDescription)
+            print(card.value.cardDescription)
         }
     }
     
     mutating func drawCard() -> Card {
-        
-        //cards.popLast fails to preview
-        //cards.removeAt / .removeFirst / .removeLast fails to preview
-        //return cards [0] creates a white screen
-        //I can ask for Cards [0] in Content View & have it display
         return cards.popLast()!
     }
     
