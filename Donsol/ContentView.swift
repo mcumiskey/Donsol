@@ -61,7 +61,7 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .padding(10)
                 }
-                if (game.canEscape) {
+                if (game.canMoveToNextRoom) {
                     Button(action: { game.generateRoom() },
                            label: {
                             Text("Next Room")
