@@ -60,19 +60,24 @@ class Game: ObservableObject {
     }
     
     func generateRoom () {
-        room = (0..<4).compactMap { _ in deck.drawCard()}
+        let trCard = Card(value: CardValue.heart(.ace), isFlipped: false)
+        let tlCard = Card(value: CardValue.diamond(.ten), isFlipped: false)
+        let brCard = Card(value: CardValue.club(.four), isFlipped: false)
+        let blCard = Card(value: CardValue.joker(.blue), isFlipped: false)
+
+        room = [trCard, tlCard, brCard, blCard]
     }
     
-    var canMoveToNextRoom: Bool {
-        room.contains { card in
-            switch card.value {
-            case .heart, .diamond:
-                return !card.isFlipped
-            default:
-                return false
-            }
-        }
-    }
+//    var canMoveToNextRoom: Bool {
+//        room.contains { card in
+//            switch card.value {
+//            case .heart, .diamond:
+//                return !card.isFlipped
+//            default:
+//                return false
+//            }
+//        }
+//    }
     
     func checkGameOver () {
         
@@ -133,8 +138,13 @@ class Game: ObservableObject {
         case .joker :
             lowerHealth(damage: 21)
             healthPotionSickness = false
-            
         }
     }
 }
 
+
+struct Game_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+    }
+}

@@ -61,16 +61,14 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .padding(10)
                 }
-                if (game.canMoveToNextRoom) {
-                    Button(action: { game.generateRoom() },
-                           label: {
-                            Text("Next Room")
-                                .frame(width: 100, height: 50, alignment: .center)
-                                .background(Color.white)
-                                .foregroundColor(.black)
-                                .cornerRadius(15)
-                           })
-                }
+                Button(action: { game.generateRoom() }, label: {
+                    Text("Next Room")
+                        .frame(width: 100, height: 50, alignment: .center)
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(15)
+                    })
+
                 Spacer()
             }
         }
