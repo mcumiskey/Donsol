@@ -14,10 +14,13 @@ class Game: ObservableObject {
     @Published var sheild_break: Int = 0
     
     //flow controls
+    @Published var canEscape: Bool
     @Published var gameOver: Bool
     @Published var healthPotionSickness: Bool
     
-    var deck = Deck()
+    
+    
+    @Published var deck = Deck()
     
     var room: [Card] = [] // 1-4 cards representing the active room
     
@@ -28,6 +31,7 @@ class Game: ObservableObject {
     init() {
         current_health = 22
         current_sheild = 0
+        canEscape = false
         gameOver = false
         healthPotionSickness = false
         generateRoom()
@@ -36,12 +40,12 @@ class Game: ObservableObject {
     func lowerHealth (damage: Int) {
         current_health = current_health - max(0, damage - current_sheild)
         
-        if(damage >= sheild_break) {
+        if(damage >= sheild_break){
             sheild_break = 0;
             current_sheild = 0;
         }
         
-        if(current_health <= 0) {
+        if(current_health <= 0){
             gameOver = true
             current_health = 0
         }
@@ -60,28 +64,31 @@ class Game: ObservableObject {
     }
     
     func generateRoom () {
-        let trCard = Card(value: CardValue.heart(.ace), isFlipped: false)
-        let tlCard = Card(value: CardValue.diamond(.ten), isFlipped: false)
-        let brCard = Card(value: CardValue.club(.four), isFlipped: false)
-        let blCard = Card(value: CardValue.joker(.blue), isFlipped: false)
-
-        room = [trCard, tlCard, brCard, blCard]
+        room = (0..<4).compactMap { _ in deck.drawCard()}
+        canEscape = false
     }
     
-//    var canMoveToNextRoom: Bool {
-//        room.contains { card in
-//            switch card.value {
-//            case .heart, .diamond:
-//                return !card.isFlipped
-//            default:
-//                return false
-//            }
-//        }
-//    }
-    
-    func checkGameOver () {
+    func checkRoom () {
+        //we want to check if all four cards are flipped
+        //all flipped = go to next room
         
+        //if not all are flipped, check to see if any are jokers, clubs, or spades
+        //if there are any, cannot progress to next room
+        
+        for card in room {
+            if(card.isFlipped == true) {
+                //do nothing
+            } else {
+                switch card.value {
+                case .heart(_), .diamond(_) :
+                    canEscape = true
+                case .spade(_), .club(_), .joker(_) :
+                    canEscape = false
+                }
+            }
+        }
     }
+    
     
     func selectCard(card: CardValue) {
         
@@ -139,7 +146,9 @@ class Game: ObservableObject {
             lowerHealth(damage: 21)
             healthPotionSickness = false
         }
+        checkRoom()
     }
+    
 }
 
 
