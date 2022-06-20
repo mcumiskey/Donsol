@@ -136,7 +136,8 @@ extension Array where Element == CardValue {
 
 //the cards have a value and know if they are flipped
 //the CardValue holds the suit and numbers
-struct Card: Equatable {
+struct Card: Equatable, Identifiable {
+    var id: String { value.cardDescription }
     let value: CardValue
     let isFlipped: Bool
 }
@@ -163,8 +164,8 @@ struct Deck {
         }
     }
     
-    mutating func drawCard() -> Card {
-        return cards.popLast()!
+    mutating func drawCard() -> Card? {
+        return cards.popLast()
     }
     
     mutating func addCard(card: Card) {
