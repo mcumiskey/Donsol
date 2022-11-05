@@ -7,14 +7,6 @@
 
 import SwiftUI
 
-//struct BackgroundView: View {
-//    var body: some View {
-//        Rectangle()
-//            .foregroundColor(Color("Background"))
-//            .ignoresSafeArea()
-//    }
-//}
-
 struct BackgroundView: ViewModifier {
     func body(content: Content) -> some View {
         ZStack{
