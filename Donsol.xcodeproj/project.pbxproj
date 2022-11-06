@@ -15,7 +15,7 @@
 		022B61A82864B50A004DB346 /* SheildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022B61A72864B509004DB346 /* SheildView.swift */; };
 		025B8D7A29172A8500ED5174 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 025B8D7929172A8500ED5174 /* ComposableArchitecture */; };
 		02BDC6FC280CD14E0043E763 /* DonsolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BDC6FB280CD14E0043E763 /* DonsolTests.swift */; };
-		02BDC706280CD1610043E763 /* GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BDC705280CD1610043E763 /* GameTests.swift */; };
+		02CD3EFF291823CC001469C1 /* ComposableGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CD3EFE291823CC001469C1 /* ComposableGameView.swift */; };
 		02CEFF5B27F89FB300624101 /* DonsolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CEFF5A27F89FB300624101 /* DonsolApp.swift */; };
 		02CEFF5D27F89FB300624101 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CEFF5C27F89FB300624101 /* GameView.swift */; };
 		02CEFF5F27F89FB600624101 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02CEFF5E27F89FB600624101 /* Assets.xcassets */; };
@@ -45,7 +45,7 @@
 		02BDC6F9280CD14E0043E763 /* DonsolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DonsolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02BDC6FB280CD14E0043E763 /* DonsolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonsolTests.swift; sourceTree = "<group>"; };
 		02BDC6FD280CD14E0043E763 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		02BDC705280CD1610043E763 /* GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
+		02CD3EFE291823CC001469C1 /* ComposableGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposableGameView.swift; sourceTree = "<group>"; };
 		02CEFF5727F89FB300624101 /* Donsol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Donsol.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02CEFF5A27F89FB300624101 /* DonsolApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonsolApp.swift; sourceTree = "<group>"; };
 		02CEFF5C27F89FB300624101 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -80,7 +80,6 @@
 			isa = PBXGroup;
 			children = (
 				02BDC6FB280CD14E0043E763 /* DonsolTests.swift */,
-				02BDC705280CD1610043E763 /* GameTests.swift */,
 				02BDC6FD280CD14E0043E763 /* Info.plist */,
 			);
 			path = DonsolTests;
@@ -112,6 +111,7 @@
 				02CEFF6D27F8A23400624101 /* Game.swift */,
 				02CEFF5C27F89FB300624101 /* GameView.swift */,
 				02E50D9129170680003657E9 /* DonsolGameComponent.swift */,
+				02CD3EFE291823CC001469C1 /* ComposableGameView.swift */,
 				022B61A328649BD8004DB346 /* HealthView.swift */,
 				022B619F28649B97004DB346 /* HeaderView.swift */,
 				022B61A72864B509004DB346 /* SheildView.swift */,
@@ -239,7 +239,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				02BDC6FC280CD14E0043E763 /* DonsolTests.swift in Sources */,
-				02BDC706280CD1610043E763 /* GameTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +255,7 @@
 				022B61A428649BD8004DB346 /* HealthView.swift in Sources */,
 				02CEFF6E27F8A23400624101 /* Game.swift in Sources */,
 				022B61A028649B97004DB346 /* HeaderView.swift in Sources */,
+				02CD3EFF291823CC001469C1 /* ComposableGameView.swift in Sources */,
 				02E50D9229170680003657E9 /* DonsolGameComponent.swift in Sources */,
 				022B61A82864B50A004DB346 /* SheildView.swift in Sources */,
 			);

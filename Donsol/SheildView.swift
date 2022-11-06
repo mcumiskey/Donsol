@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct SheildView: View {
     @ObservedObject var game: Game
@@ -37,3 +38,40 @@ struct SheildView: View {
     }
 }
 
+struct ComposableSheildView: View {
+    let store: Store <DonsolState, DonsolAction>
+    var body: some View {
+        WithViewStore(self.store) { viewStore in
+            HStack(alignment: .center) {
+                Image(systemName: "suit.diamond.fill")
+                    .resizable()
+                    .padding(5)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 25, height: 25, alignment: .center)
+                    .foregroundColor(.red)
+                
+                HStack {
+                    Text("\(viewStore.currentShield)")
+                        .foregroundColor(.white)
+                    Text("/")
+                        .foregroundColor(.white)
+                    Text("11")
+                        .foregroundColor(.white)
+                }
+                
+                GeometryReader { geometry in
+                    ZStack(alignment: .leading) {
+                        Rectangle()
+                            .foregroundColor(.white)
+                            .frame(width: geometry.size.width, height: geometry.size.height)
+                        
+                        Rectangle()
+                            .foregroundColor(.red)
+                            .frame(width: geometry.size.width * (viewStore.sheildPercent/100), height: geometry.size.height)
+                    }
+                }
+                .padding(.vertical, 4)
+            }
+        }
+    }
+}

@@ -34,7 +34,7 @@ class DonsolTests: XCTestCase {
         let store = TestStore(
             initialState: DonsolState(currentHealth: 22, healthPotionSickness: false),
             reducer: donsolReducer,
-            environment: DonsolEnviornment()
+            environment: .mock
         )
         
         store.assert(
@@ -48,7 +48,7 @@ class DonsolTests: XCTestCase {
         let store = TestStore (
             initialState: DonsolState(currentHealth: 5, healthPotionSickness: false),
             reducer: donsolReducer,
-            environment: DonsolEnviornment()
+            environment: .mock
         )
         
         store.assert(
@@ -62,25 +62,33 @@ class DonsolTests: XCTestCase {
         let store = TestStore (
             initialState: DonsolState(currentHealth: 5, healthPotionSickness: true),
             reducer: donsolReducer,
-            environment: DonsolEnviornment()
+            environment: .mock
         )
         
-        store.assert(
-            //no state change (restore health stays at 5) so no trailing closure
-            .send(.restoreHealth(healing: 1))
-        )
+        store.send(.restoreHealth(healing: 1))
     }
     
     func testGenerateRoom(){
+        var cards: [Card] = []
+        var deck = Deck()
         let store = TestStore (
             initialState: DonsolState(currentHealth: 22, healthPotionSickness: true),
             reducer: donsolReducer,
-            environment: DonsolEnviornment()
+            environment: DonsolEnviornment(
+                drawCard: {
+                    let card = deck.drawCard()
+                    if let card = card {
+                        cards.append(card)
+                    }
+                    return card
+                }
+            )
         )
-        
-        store.assert(
-            
-        )
+        store.send(.generateRoom) {
+            $0.room = cards
+        }
     }
+    
+
 
 }

@@ -163,13 +163,16 @@ struct Deck: Equatable {
     
     init() {
         cards = .newDeck
-        cards.shuffle()
     }
     
     func listDeck() {
         for card in cards {
             print(card.value.cardDescription)
         }
+    }
+    
+    mutating func shuffleDeck() {
+        cards.shuffle()
     }
     
     mutating func drawCard() -> Card? {

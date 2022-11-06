@@ -12,7 +12,6 @@ struct DonsolState: Equatable {
     var currentShield: Int = 0
     var shieldBreak: Int = 0
     var healthPotionSickness: Bool
-    var deck = Deck()
     var room: [Card] = []
     
     var canEscape: Bool {
@@ -24,7 +23,7 @@ struct DonsolState: Equatable {
     }
     
     var healthPercent: CGFloat { (CGFloat(currentHealth) / CGFloat(22)) * 100.0 }
-    var sheildPercent: CGFloat { (CGFloat(currentHealth) / CGFloat(11)) * 100.0 }
+    var sheildPercent: CGFloat { (CGFloat(currentShield) / CGFloat(11)) * 100.0 }
 }
 
 enum DonsolAction: Equatable {
@@ -35,10 +34,22 @@ enum DonsolAction: Equatable {
     case checkRoom
 }
 
-struct DonsolEnviornment {}
+struct DonsolEnviornment {
+    var drawCard: () -> Card?
+    
+    static var live: DonsolEnviornment {
+        var deck = Deck()
+        deck.shuffleDeck()
+        return .init(drawCard: { deck.drawCard() })
+    }
+    
+    static var mock: DonsolEnviornment {
+        DonsolEnviornment(drawCard: { nil })
+    }
+}
 
 //closure donsoleReducer STORES the reducer function as a variable
-var donsolReducer = Reducer<DonsolState, DonsolAction, DonsolEnviornment> { state, action, _ in
+var donsolReducer = Reducer<DonsolState, DonsolAction, DonsolEnviornment> { state, action, env in
     switch action {
         case .lowerHealth(let damage):
             state.currentHealth = state.currentHealth - max(0, damage - state.currentShield)
@@ -62,7 +73,7 @@ var donsolReducer = Reducer<DonsolState, DonsolAction, DonsolEnviornment> { stat
             }
             return .none
         case .generateRoom:
-            state.room = (0..<4).compactMap { _ in state.deck.drawCard()}
+            state.room = (0..<4).compactMap { _ in env.drawCard() }
             return .none
         case .selectCard(let cardValue):
             state.room = state.room.map { c in
