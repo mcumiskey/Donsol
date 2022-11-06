@@ -69,27 +69,10 @@ class Game: ObservableObject {
     }
     
     func checkRoom () {
-        //we want to check if all four cards are flipped
-        //all flipped = go to next room
-        
-        //if not all are flipped, check to see if any are jokers, clubs, or spades
-        //if there are any, cannot progress to next room
-        
-        for card in room {
-            if(card.isFlipped == true) {
-                //do nothing
-            } else {
-                switch card.value {
-                case .heart(_), .diamond(_) :
-                    canEscape = true
-                case .spade(_), .club(_), .joker(_) :
-                    canEscape = false
-                }
-            }
-        }
+
     }
     
-    
+
     func selectCard(card: CardValue) {
         
         // flip the card
@@ -100,12 +83,9 @@ class Game: ObservableObject {
         
         switch card {
         case .heart(let num):
-            
             switch num {
-    
             case .ace, .jack, .queen, .king:
                 restoreHealth(healing: 11)
-                
             default:
                 restoreHealth(healing: num.rawValue)
             }

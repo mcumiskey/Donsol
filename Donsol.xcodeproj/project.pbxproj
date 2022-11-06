@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		022B61A028649B97004DB346 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022B619F28649B97004DB346 /* HeaderView.swift */; };
 		022B61A428649BD8004DB346 /* HealthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022B61A328649BD8004DB346 /* HealthView.swift */; };
 		022B61A82864B50A004DB346 /* SheildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022B61A72864B509004DB346 /* SheildView.swift */; };
+		025B8D7A29172A8500ED5174 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 025B8D7929172A8500ED5174 /* ComposableArchitecture */; };
 		02BDC6FC280CD14E0043E763 /* DonsolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BDC6FB280CD14E0043E763 /* DonsolTests.swift */; };
 		02BDC706280CD1610043E763 /* GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BDC705280CD1610043E763 /* GameTests.swift */; };
 		02CEFF5B27F89FB300624101 /* DonsolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CEFF5A27F89FB300624101 /* DonsolApp.swift */; };
@@ -68,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				025B8D7A29172A8500ED5174 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +89,6 @@
 		02CEFF4E27F89FB300624101 = {
 			isa = PBXGroup;
 			children = (
-				02E50D9129170680003657E9 /* DonsolGameComponent.swift */,
 				02CEFF5927F89FB300624101 /* Donsol */,
 				02BDC6FA280CD14E0043E763 /* DonsolTests */,
 				02CEFF5827F89FB300624101 /* Products */,
@@ -110,6 +111,7 @@
 				02CEFF6A27F8A01F00624101 /* Card.swift */,
 				02CEFF6D27F8A23400624101 /* Game.swift */,
 				02CEFF5C27F89FB300624101 /* GameView.swift */,
+				02E50D9129170680003657E9 /* DonsolGameComponent.swift */,
 				022B61A328649BD8004DB346 /* HealthView.swift */,
 				022B619F28649B97004DB346 /* HeaderView.swift */,
 				022B61A72864B509004DB346 /* SheildView.swift */,
@@ -165,6 +167,9 @@
 			dependencies = (
 			);
 			name = Donsol;
+			packageProductDependencies = (
+				025B8D7929172A8500ED5174 /* ComposableArchitecture */,
+			);
 			productName = Donsol;
 			productReference = 02CEFF5727F89FB300624101 /* Donsol.app */;
 			productType = "com.apple.product-type.application";
@@ -196,6 +201,9 @@
 				Base,
 			);
 			mainGroup = 02CEFF4E27F89FB300624101;
+			packageReferences = (
+				025B8D7829172A8500ED5174 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = 02CEFF5827F89FB300624101 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -434,8 +442,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = milescumiskey.Donsol;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -455,8 +466,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = milescumiskey.Donsol;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -491,6 +505,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		025B8D7829172A8500ED5174 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = exactVersion;
+				version = 0.39.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		025B8D7929172A8500ED5174 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 025B8D7829172A8500ED5174 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 02CEFF4F27F89FB300624101 /* Project object */;
 }

@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI //for Image property of card
 
-
 enum CardValue: Equatable {
     enum Number: Int, Equatable {
         case ace = 1
@@ -35,6 +34,15 @@ enum CardValue: Equatable {
     case spade(Number)
     case club(Number)
     case joker(Color)
+    
+    var isMonster: Bool {
+        switch self {
+        case .heart, .diamond:
+            return false
+        default:
+            return true
+        }
+    }
     
     var image : Image {
         switch self {
@@ -150,7 +158,7 @@ extension Array where Element == Card {
     }
 }
 
-struct Deck {
+struct Deck: Equatable {
     var cards: [Card]
     
     init() {
