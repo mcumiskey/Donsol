@@ -60,7 +60,7 @@ struct ComposableSheildView: View {
                 }
                 
                 GeometryReader { geometry in
-                    ZStack(alignment: .leading) {
+                    ZStack(alignment: .trailing) {
                         Rectangle()
                             .foregroundColor(.white)
                             .frame(width: geometry.size.width, height: geometry.size.height)

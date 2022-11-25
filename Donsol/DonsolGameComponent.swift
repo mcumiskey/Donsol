@@ -9,13 +9,13 @@ import CoreGraphics
 
 struct DonsolState: Equatable {
     var currentHealth: Int
-    var currentShield: Int = 0
-    var shieldBreak: Int = 0
+    var currentShield: Int
+    var shieldStrength: Int = 0
     var healthPotionSickness: Bool
     var room: [Card] = []
     
     var canEscape: Bool {
-        !room.contains(where: { !$0.isFlipped && $0.value.isMonster })
+        (currentHealth > 0) && !room.contains(where: { !$0.isFlipped && $0.value.isMonster })
     }
     
     var isGameOver: Bool {
@@ -31,7 +31,6 @@ enum DonsolAction: Equatable {
     case restoreHealth(healing: Int)
     case generateRoom
     case selectCard(CardValue)
-    case checkRoom
 }
 
 struct DonsolEnviornment {
@@ -52,14 +51,19 @@ struct DonsolEnviornment {
 var donsolReducer = Reducer<DonsolState, DonsolAction, DonsolEnviornment> { state, action, env in
     switch action {
         case .lowerHealth(let damage):
+            //current health = currenthealth - (damage - sheild)
             state.currentHealth = state.currentHealth - max(0, damage - state.currentShield)
-            if (damage >= state.shieldBreak) {
-                state.shieldBreak = 0;
-                state.currentShield = 0;
+            if (damage >= state.shieldStrength) {
+                state.shieldStrength = 0
+                state.currentShield = 0
+            }
+            if(damage < state.shieldStrength){
+                state.shieldStrength = damage
             }
             if (state.currentHealth <= 0) {
                 state.currentHealth = 0
             }
+            
             return .none
         case .restoreHealth(let healing):
             if (state.healthPotionSickness) {
@@ -71,20 +75,20 @@ var donsolReducer = Reducer<DonsolState, DonsolAction, DonsolEnviornment> { stat
                     state.currentHealth = state.currentHealth + healing
                 }
             }
+            state.healthPotionSickness = true
             return .none
         case .generateRoom:
             state.room = (0..<4).compactMap { _ in env.drawCard() }
             return .none
+            
         case .selectCard(let cardValue):
             state.room = state.room.map { c in
                 guard c.value == cardValue else { return c }
                 return Card(value: cardValue, isFlipped: true)
             }
-            return Effect(value: .checkRoom)
             
             switch cardValue {
                 case .heart(let num):
-                    state.healthPotionSickness = true
                     switch num {
                         case .ace, .jack, .queen, .king:
                             return Effect(value: .restoreHealth(healing: 11))
@@ -100,12 +104,11 @@ var donsolReducer = Reducer<DonsolState, DonsolAction, DonsolEnviornment> { stat
                             state.currentShield = num.rawValue
                     }
                     state.healthPotionSickness = false
-                    state.shieldBreak = 0
+                    state.shieldStrength = 21
                     return .none
                     
                 case .spade(let num), .club(let num):
                     state.healthPotionSickness = false
-                    state.shieldBreak = num.rawValue
                     switch num {
                         case .jack:
                             return Effect(value: .lowerHealth(damage: 11))
@@ -118,17 +121,12 @@ var donsolReducer = Reducer<DonsolState, DonsolAction, DonsolEnviornment> { stat
                         default:
                             return Effect(value: .lowerHealth(damage: num.rawValue))
                     }
-                    return .none
                     
                 case .joker :
                     state.healthPotionSickness = false
                     return Effect(value: .lowerHealth(damage: 21))
                     
-                default:
-                    return .none
             }
-        case .checkRoom:
-            return .none
     }
 }
 
