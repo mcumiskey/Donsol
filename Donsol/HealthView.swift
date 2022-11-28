@@ -60,7 +60,7 @@ struct ComposableHealthView: View {
                     .padding(5)
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 25, height: 25, alignment: .center)
-                    .foregroundColor(.red)
+                    .foregroundColor(Color("Red"))
                 
                 HStack {
                     Text("\(viewStore.currentHealth)")

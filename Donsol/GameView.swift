@@ -25,7 +25,7 @@ struct GameView: View {
                 Spacer()
                 if(self.game.sheild_break != 0) {
                     Text("Sheild Break: \(self.game.sheild_break)")
-                        .foregroundColor(.white)
+                        .foregroundColor(Color("TextColor"))
                         .padding(10)
                 }
                 Button(action: { game.generateRoom() }, label: {

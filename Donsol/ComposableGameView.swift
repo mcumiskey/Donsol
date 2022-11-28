@@ -16,11 +16,20 @@ struct ComposableGameView: View {
         NavigationView {
             WithViewStore(self.store) { viewStore in
                 VStack {
+                    HStack{
+                        Spacer()
+                        NavigationLink(
+                            destination: TutorialView(), label: { Image(systemName: "questionmark.circle.fill") }
+                        )
+                    }.padding(.trailing, 30.0)
+
+                    
                     if(!viewStore.isGameOver) {
                         VStack {
-                            ComposableShieldStrengthView(shieldStrength: viewStore.shieldStrength)
+                            ComposableStatusView(shieldStrength: viewStore.shieldStrength)
+                                .layoutPriority(1)
                             
-                            HealthBar(maxValue: 22, curValue: viewStore.currentHealth, percent: viewStore.healthPercent)
+                            HealthBar(maxValue: 22, curValue: viewStore.currentHealth, percent: viewStore.healthPercent, isSick: viewStore.healthPotionSickness)
                             
                             SheildBar(maxValue: 11, curValue: viewStore.currentShield, percent: viewStore.sheildPercent)
                                                         
@@ -29,7 +38,7 @@ struct ComposableGameView: View {
                                     ComposableCardView(card: card) { card in
                                         viewStore.send(.selectCard(card.value))
                                     }
-                                }.padding(10)
+                                }
                             }
                         }
                         .padding(20)
@@ -43,15 +52,28 @@ struct ComposableGameView: View {
                                         .foregroundColor(.black)
                                         .cornerRadius(15)
                                 }
-                            }
-                            Button(action: { viewStore.send(.generateRoom) }) {
-                                Text("Next Room")
-                                    .frame(width: 100, height: 50, alignment: .center)
-                                    .background(Color.white)
-                                    .foregroundColor(.black)
-                                    .cornerRadius(15)
+                            } else {
+                                Button(action: { viewStore.send(.generateRoom) }) {
+                                    Text("Next Room")
+                                        .frame(width: 100, height: 50, alignment: .center)
+                                        .background(Color.white)
+                                        .foregroundColor(.black)
+                                        .cornerRadius(15)
+                                }
                             }
                         }
+                    }
+                    
+                    else {
+                        NavigationLink(
+                            destination: ComposableGameView(
+                                store: Store(
+                                    initialState: DonsolState(currentHealth: 22, currentShield: 0, healthPotionSickness: false),
+                                    reducer: donsolReducer,
+                                    environment: .live
+                                )
+                            ), label: { Text("New Game") }
+                        )
                     }
                 }
                 .setBackground()

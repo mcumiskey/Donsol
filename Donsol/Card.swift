@@ -68,13 +68,17 @@ enum CardValue: Equatable {
         switch self {
         //the num is the Enum, that has to bee gotten after the suite
         case .heart(let num) :
-            return "\(num) of hearts"
+                if(num.rawValue > 10){
+                    return "Large Potion \(num)"
+                } else {
+                    return "Potion \(num)"
+                }
         case .diamond(let num) :
-            return "\(num) of diamonds"
+            return "Sheild \(num)"
         case .spade(let num) :
-            return "\(num) of spades"
+            return "Monster \(num)"
         case .club(let num) :
-            return "\(num) of clubs"
+            return "Monster \(num)"
         case .joker(let color) :
             return "\(color) donsol"
         }

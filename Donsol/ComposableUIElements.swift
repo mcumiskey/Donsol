@@ -12,6 +12,7 @@ struct HealthBar: View {
     let maxValue: Int
     let curValue: Int
     let percent: CGFloat
+    let isSick: Bool
     
     var body: some View {
         HStack(alignment: .center) {
@@ -20,15 +21,19 @@ struct HealthBar: View {
                 .padding(5)
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 25, height: 25, alignment: .center)
-                .foregroundColor(.red)
+                .foregroundColor(Color("Red"))
             
             HStack {
                 Text("\(curValue)")
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("TextColor"))
+
                 Text("/")
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("TextColor"))
+
                 Text("\(maxValue)")
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("TextColor"))
+
+
             }
             
             GeometryReader { geometry in
@@ -36,10 +41,15 @@ struct HealthBar: View {
                     Rectangle()
                         .foregroundColor(.white)
                         .frame(width: geometry.size.width, height: geometry.size.height)
-                    
-                    Rectangle()
-                        .foregroundColor(.red)
-                        .frame(width: geometry.size.width * (percent/100), height: geometry.size.height)
+                    if(isSick) {
+                        Rectangle()
+                            .foregroundColor(.green)
+                            .frame(width: geometry.size.width * (percent/100), height: geometry.size.height)
+                    } else {
+                        Rectangle()
+                            .foregroundColor(Color("Red"))
+                            .frame(width: geometry.size.width * (percent/100), height: geometry.size.height)
+                    }
                 }
             }
             .padding(.vertical, 4)
@@ -61,15 +71,18 @@ struct SheildBar: View {
                 .padding(5)
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 25, height: 25, alignment: .center)
-                .foregroundColor(.red)
+                .foregroundColor(Color("Red"))
             
             HStack {
                 Text("\(curValue)")
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("TextColor"))
+
                 Text("/")
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("TextColor"))
+
                 Text("\(maxValue)")
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("TextColor"))
+
             }
             
             GeometryReader { geometry in
@@ -79,7 +92,7 @@ struct SheildBar: View {
                         .frame(width: geometry.size.width, height: geometry.size.height)
                     
                     Rectangle()
-                        .foregroundColor(.red)
+                        .foregroundColor(Color("Red"))
                         .frame(width: geometry.size.width * (percent/100), height: geometry.size.height)
                 }
             }
@@ -122,24 +135,25 @@ struct ComposableHeaderView: View {
     var body: some View {
         VStack {
             Text(text)
-                .foregroundColor(.white)
+                .foregroundColor(Color("TextColor"))
                 .fontWeight(.medium)
                 .multilineTextAlignment(.center)
                 .padding(30.0)
-                .border(Color.white, width: 1)
+                .border(Color("TextColor"), width: 1)
+                .allowsTightening(true)
         }
     }
 }
 
-struct ComposableShieldStrengthView: View {
+struct ComposableStatusView: View {
     let shieldStrength: Int
     var body: some View {
         VStack {
             Text("Your shield will break if you take more than \(shieldStrength) damage")
-                .foregroundColor(.white)
+                .foregroundColor(Color("TextColor"))
                 .fontWeight(.medium)
                 .multilineTextAlignment(.center)
-                .padding(30.0)
+                .padding(20.0)
                 .border(Color.white, width: 1)
                 .lineLimit(0)
         }

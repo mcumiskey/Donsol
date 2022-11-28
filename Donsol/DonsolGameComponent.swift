@@ -78,6 +78,7 @@ var donsolReducer = Reducer<DonsolState, DonsolAction, DonsolEnviornment> { stat
             state.healthPotionSickness = true
             return .none
         case .generateRoom:
+            state.healthPotionSickness = false 
             state.room = (0..<4).compactMap { _ in env.drawCard() }
             return .none
             
